@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="uz" style="scroll-behavior: smooth;">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alisher Navoiy - Xalqaro Ilmiy Simpozium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --deep-blue: #003366;
+        --royal-teal: #004d61;
+        --parchment: #fcf8ee;
+        --gold: #d4af37;
+        --antique-white: #f3eee6;
+      }
+      body {
+        font-family: 'Cormorant Garamond', serif;
+        background-color: var(--parchment);
+        color: #1a202c;
+      }
+      h1, h2, h3, h4, .font-classic {
+        font-family: 'Cinzel Decorative', cursive;
+      }
+      .font-serif-classic {
+        font-family: 'Cormorant Garamond', serif;
+      }
+      .gold-gradient {
+        background: linear-gradient(135deg, #a67c00 0%, #d4af37 50%, #ffbf00 100%);
+      }
+      .royal-gradient {
+        background: linear-gradient(135deg, var(--royal-teal) 0%, var(--deep-blue) 100%);
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(166, 124, 0, 0.25);
+        box-shadow: 0 20px 50px -15px rgba(0,0,0,0.1);
+      }
+      .parchment-texture {
+        background-image: url("https://www.transparenttextures.com/patterns/p6.png");
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .perspective-1000 {
+        perspective: 1000px;
+      }
+      .rotate-y-n15 {
+        transform: rotateY(-15deg);
+      }
+      @keyframes pattern-shift {
+        from { background-position: 0 0; }
+        to { background-position: 1000px 1000px; }
+      }
+      .animated-pattern {
+        animation: pattern-shift 120s linear infinite;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+  }
+}
+</script>
+</head>
+  <body class="parchment-texture">
+    <div id="root"></div>
+  </body>
+</html>
