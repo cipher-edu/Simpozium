@@ -15,45 +15,19 @@ export enum Section {
 
 export type Language = 'uz' | 'ru' | 'en';
 
-export interface ScheduleEvent {
-  time: string;
-  title: string;
-  speaker?: string;
-  location?: string;
-  type: 'plenary' | 'break' | 'track' | 'cultural';
-}
-
-export interface DaySchedule {
-  day: number;
-  date: string;
-  events: ScheduleEvent[];
-}
-
-export interface Book {
+export interface Review {
   id: string;
-  title: string;
-  cover: string;
-  isbn: string;
-  editors: string;
-  year: number;
-  pdfUrl: string;
-  pages: number;
-}
-
-export interface PastSymposium {
-  id: string;
-  year: number;
-  theme: string;
-  description: string;
-  tracks: { title: string; count: number; details: string }[];
-  books: Book[];
-  gallery: string[];
-  outcomes: string[];
-  stats: {
-    speakers: number;
-    articles: number;
-    countries: number;
+  reviewerId: string;
+  reviewerName: string;
+  scores: {
+    originality: number;
+    methodology: number;
+    language: number;
+    relevance: number;
   };
+  comments: string;
+  date: string;
+  recommendation: 'accept' | 'revision' | 'reject';
 }
 
 export interface Article {
@@ -63,36 +37,65 @@ export interface Article {
   title: string;
   abstract: string;
   keywords: string[];
-  status: 'submitted' | 'technical_check' | 'review' | 'accepted' | 'rejected';
+  status: 'submitted' | 'technical_check' | 'review' | 'revision' | 'accepted' | 'rejected';
   submittedAt: string;
-  fileUrl?: string;
-  feedback?: string;
-  track?: string;
-}
-
-export interface Speaker {
-  id: string;
-  name: string;
-  title: string;
-  institution: string;
-  image: string;
-  bio?: string;
-  participationYears: number[];
-  email?: string;
+  track: string;
+  reviews: Review[];
+  doi?: string;
+  version: number;
 }
 
 export interface User {
   id: string;
   name: string;
   email: string;
-  phone?: string;
-  role: 'participant' | 'speaker' | 'listener' | 'student' | 'admin';
+  role: 'participant' | 'speaker' | 'reviewer' | 'admin' | 'listener';
   institution?: string;
-  degree?: string;
-  academicTitle?: string;
-  bio?: string;
-  orcid?: string;
   track?: string;
   articles: Article[];
   qrCode?: string;
+  bio?: string;
+  orcid?: string;
+  researchInterests?: string[];
+  socialLinks?: {
+    linkedin?: string;
+    googleScholar?: string;
+  };
+}
+
+export interface ChatMessage {
+  id: string;
+  fromId: string;
+  toId: string;
+  text: string;
+  timestamp: Date;
+}
+
+export interface PastSymposium {
+  id: string;
+  year: number;
+  theme: string;
+  description: string;
+  stats: {
+    speakers: number;
+    articles: number;
+    countries: number;
+  };
+  books: any[];
+  gallery: string[];
+}
+
+// Added ScheduleEvent and DaySchedule interfaces to fix missing export in Program.tsx
+export interface ScheduleEvent {
+  time: string;
+  title: string;
+  type: 'plenary' | 'track' | 'break' | 'cultural' | string;
+  speaker?: string;
+  location?: string;
+}
+
+export interface DaySchedule {
+  day: number;
+  date: string;
+  events: ScheduleEvent[];
 }

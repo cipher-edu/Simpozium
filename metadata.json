@@ -1,5 +1,8 @@
 {
   "name": "Alisher Navoiy International Symposium",
-  "description": "A professional web platform for the international scientific conference dedicated to the heritage of Alisher Navoiy, featuring oriental design, registration systems, and personal cabinets.",
-  "requestFramePermissions": []
+  "description": "A professional web platform for the international scientific conference dedicated to the heritage of Alisher Navoiy, featuring oriental design, registration systems, and AI-powered academic assistance.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
 }

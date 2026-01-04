@@ -10,11 +10,15 @@ interface VenueProps {
 }
 
 const Venue: React.FC<VenueProps> = ({ onOpenTour, language }) => {
-  // Fix: Ensure t function returns string
-  const t = (key: keyof typeof translations.uz): string => {
-    const val = translations[language][key] || translations.uz[key];
+  // Use string for key to allow flexibility and fix TS errors
+  const t = (key: string): string => {
+    const val = (translations[language] as any)?.[key] || (translations.uz as any)[key];
     return (typeof val === 'string' ? val : key);
   };
+
+  // Ishchi video ID'lar
+  const uniTourId = "jfSBYfAOqPE";
+  const cityTourId = "jfSBYfAOqPE";
 
   return (
     <section className="py-32 relative overflow-hidden bg-white/30 parchment-texture">
@@ -37,11 +41,11 @@ const Venue: React.FC<VenueProps> = ({ onOpenTour, language }) => {
                   <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l9-5-9-5-9 5 9 5zm0 0v6m0 0H7m5 0h5" /></svg>
                 </div>
                 <button 
-                  onClick={() => onOpenTour(t('venue_uni_h'), "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1")}
+                  onClick={() => onOpenTour(t('venue_uni_h'), `https://www.youtube.com/embed/${uniTourId}?autoplay=1&enablejsapi=1&rel=0`)}
                   className="px-6 py-3 bg-amber-600/10 border border-amber-600/30 text-amber-900 rounded-full text-xs font-black uppercase tracking-widest hover:bg-amber-600 hover:text-white transition-all flex items-center gap-2"
                 >
                   <span className="w-2 h-2 rounded-full bg-amber-600 animate-pulse" />
-                  Campus Tour 360°
+                  Campus Tour
                 </button>
               </div>
               <h3 className="text-4xl font-classic text-slate-900 mb-8 leading-tight">{t('venue_uni_h')}</h3>
@@ -61,11 +65,11 @@ const Venue: React.FC<VenueProps> = ({ onOpenTour, language }) => {
                     <svg className="w-12 h-12 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                   </div>
                   <button 
-                    onClick={() => onOpenTour(t('venue_city_h'), "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1")}
+                    onClick={() => onOpenTour(t('venue_city_h'), `https://www.youtube.com/embed/${cityTourId}?autoplay=1&enablejsapi=1&rel=0`)}
                     className="px-6 py-3 bg-blue-600/10 border border-blue-600/30 text-blue-900 rounded-full text-xs font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all flex items-center gap-2"
                   >
                     <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-                    City Tour 360°
+                    City Overview
                   </button>
                 </div>
                 <h3 className="text-4xl font-classic text-slate-950 mb-8 leading-tight">{t('venue_city_h')}</h3>

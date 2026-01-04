@@ -1,5 +1,6 @@
 
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
+import { ExternalLink, Youtube, X, AlertCircle } from 'lucide-react';
 
 interface VirtualTourModalProps {
   isOpen: boolean;
@@ -9,48 +10,99 @@ interface VirtualTourModalProps {
 }
 
 const VirtualTourModal: React.FC<VirtualTourModalProps> = ({ isOpen, onClose, title, tourUrl }) => {
+  const handleClose = useCallback(() => {
+    onClose();
+    if (window.location.hash === '#tour') {
+      window.history.back();
+    }
+  }, [onClose]);
+
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') handleClose();
+    };
+    const handlePopState = () => {
+      if (isOpen) onClose();
+    };
+
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleEsc);
+      window.history.pushState({ modal: 'tour' }, '', '#tour');
+      window.addEventListener('popstate', handlePopState);
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+      window.removeEventListener('popstate', handlePopState);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen, handleClose, onClose]);
+
   if (!isOpen) return null;
 
+  const getSafeUrl = (url: string) => {
+    let cleanUrl = url.replace('youtube.com', 'youtube-nocookie.com');
+    const separator = cleanUrl.includes('?') ? '&' : '?';
+    return `${cleanUrl}${separator}rel=0&modestbranding=1&iv_load_policy=3`;
+  };
+
+  const finalUrl = getSafeUrl(tourUrl);
+  const youtubeId = tourUrl.split('/').pop()?.split('?')[0];
+  const directLink = `https://www.youtube.com/watch?v=${youtubeId}`;
+
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10">
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-10">
       <div 
-        className="absolute inset-0 bg-slate-900/90 backdrop-blur-md"
-        onClick={onClose}
+        className="absolute inset-0 bg-slate-950/98 backdrop-blur-2xl transition-opacity duration-500"
+        onClick={handleClose}
       />
       
-      <div className="relative w-full max-w-6xl glass-card rounded-[2.5rem] border-amber-300 overflow-hidden shadow-[0_0_100px_rgba(212,175,55,0.3)] flex flex-col h-[80vh]">
-        <div className="gold-gradient h-2 w-full" />
+      <div className="relative w-full max-w-6xl glass-card rounded-[3rem] border-amber-300/40 overflow-hidden shadow-[0_0_120px_rgba(0,0,0,0.8)] flex flex-col h-[85vh] z-10 animate-in zoom-in-95 duration-300">
+        <div className="gold-gradient h-1.5 w-full" />
         
-        <div className="p-6 md:p-8 flex justify-between items-center border-b border-amber-100 bg-white/50">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 gold-gradient rounded-full flex items-center justify-center text-slate-900">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+        <div className="p-6 md:p-8 flex justify-between items-center border-b border-white/10 bg-slate-900/50 backdrop-blur-md">
+          <div className="flex items-center gap-5">
+            <div className="w-12 h-12 gold-gradient rounded-2xl flex items-center justify-center text-slate-950 shadow-xl ring-2 ring-white/20">
+              <Youtube className="w-7 h-7" />
             </div>
             <div>
-              <h3 className="text-2xl font-classic text-slate-900">{title}</h3>
-              <p className="text-xs text-amber-700 font-bold uppercase tracking-widest">360° Virtual Sayohat</p>
+              <h3 className="text-2xl md:text-3xl font-classic text-white uppercase tracking-tight leading-none mb-2">{title}</h3>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <p className="text-[10px] text-amber-400 font-black uppercase tracking-[0.3em]">Xalqaro Ilmiy Media-Resurs</p>
+              </div>
             </div>
           </div>
           
-          <button 
-            onClick={onClose}
-            className="p-3 rounded-full hover:bg-amber-100 text-slate-600 transition-colors"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-          </button>
+          <div className="flex items-center gap-4">
+            <a 
+              href={directLink} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-white/5 border border-white/10 rounded-full text-[10px] font-black uppercase tracking-widest text-white hover:bg-white/10 transition-all"
+            >
+              YouTube'da ochish <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+            <button 
+              onClick={handleClose}
+              className="p-3.5 rounded-2xl bg-white/5 hover:bg-red-500/20 text-white hover:text-red-400 transition-all active:scale-95 border border-white/10"
+            >
+              <X className="w-7 h-7" />
+            </button>
+          </div>
         </div>
         
-        <div className="flex-grow bg-black relative">
+        <div className="flex-grow bg-slate-950 relative group">
           <iframe 
-            src={tourUrl}
-            className="w-full h-full border-none"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            src={finalUrl}
+            className="w-full h-full border-none relative z-10"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
           />
-          {/* Subtle overlay hint */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 pointer-events-none px-6 py-2 bg-slate-900/60 text-white text-sm rounded-full backdrop-blur-sm italic">
-            Atrofni ko'rish uchun sichqonchani ishlating
-          </div>
         </div>
       </div>
     </div>
