@@ -9,10 +9,25 @@ export enum Section {
   ARCHIVE = 'Arxiv',
   SUBMIT = 'Maqola yuborish',
   CABINET = 'Shaxsiy kabinet',
+  ADMIN = 'Admin Panel',
   CONTACT = 'Aloqa'
 }
 
 export type Language = 'uz' | 'ru' | 'en';
+
+export interface ScheduleEvent {
+  time: string;
+  title: string;
+  speaker?: string;
+  location?: string;
+  type: 'plenary' | 'break' | 'track' | 'cultural';
+}
+
+export interface DaySchedule {
+  day: number;
+  date: string;
+  events: ScheduleEvent[];
+}
 
 export interface Book {
   id: string;
@@ -43,6 +58,8 @@ export interface PastSymposium {
 
 export interface Article {
   id: string;
+  userId: string;
+  userName: string;
   title: string;
   abstract: string;
   keywords: string[];
@@ -50,6 +67,7 @@ export interface Article {
   submittedAt: string;
   fileUrl?: string;
   feedback?: string;
+  track?: string;
 }
 
 export interface Speaker {
@@ -60,6 +78,7 @@ export interface Speaker {
   image: string;
   bio?: string;
   participationYears: number[];
+  email?: string;
 }
 
 export interface User {
@@ -67,7 +86,7 @@ export interface User {
   name: string;
   email: string;
   phone?: string;
-  role: 'participant' | 'speaker' | 'listener' | 'student';
+  role: 'participant' | 'speaker' | 'listener' | 'student' | 'admin';
   institution?: string;
   degree?: string;
   academicTitle?: string;

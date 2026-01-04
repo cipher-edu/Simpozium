@@ -9,12 +9,15 @@ import Heritage from './components/Heritage';
 import Venue from './components/Venue';
 import Tourism from './components/Tourism';
 import Logistics from './components/Logistics';
+import Program from './components/Program';
 import About from './components/About';
 import Tracks from './components/Tracks';
 import Speakers from './components/Speakers';
 import RegistrationForm from './components/RegistrationForm';
+import LoginForm from './components/LoginForm';
 import PersonalCabinet from './components/PersonalCabinet';
-import SymposiumArchive from './components/SymposiumArchive'; // Yangi import
+import AdminPanel from './components/AdminPanel';
+import SymposiumArchive from './components/SymposiumArchive';
 import Footer from './components/Footer';
 import VirtualTourModal from './components/VirtualTourModal';
 
@@ -22,10 +25,11 @@ const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<Section>(Section.HOME);
   const [user, setUser] = useState<User | null>(null);
   const [isRegistering, setIsRegistering] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [language, setLanguage] = useState<Language>('uz');
   
   const t = (key: any): string => {
-    const value = (translations[language] as any)[key];
+    const value = (translations[language] as any)[key] || (translations.uz as any)[key];
     return (typeof value === 'string' ? value : String(key));
   };
 
@@ -36,9 +40,20 @@ const App: React.FC = () => {
   });
 
   const handleLogin = (userData: User) => {
+    if (userData.email === 'admin@navoiy-uni.uz') {
+      userData.role = 'admin';
+    }
+    
     setUser(userData);
     setIsRegistering(false);
-    setActiveSection(Section.CABINET);
+    setIsLoggingIn(false);
+    
+    if (userData.role === 'admin') {
+      setActiveSection(Section.ADMIN);
+    } else {
+      setActiveSection(Section.CABINET);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleLogout = () => {
@@ -55,10 +70,11 @@ const App: React.FC = () => {
     switch (section) {
       case Section.HOME: return 'hero';
       case Section.ABOUT: return 'about';
+      case Section.PROGRAM: return 'program';
       case Section.TRACKS: return 'tracks';
       case Section.SPEAKERS: return 'speakers';
       case Section.LOGISTICS: return 'logistics';
-      case Section.ARCHIVE: return 'archive'; // Yangi id
+      case Section.ARCHIVE: return 'archive';
       default: return null;
     }
   };
@@ -66,16 +82,18 @@ const App: React.FC = () => {
   const handleSectionChange = (section: Section) => {
     const targetId = sectionToId(section);
     
-    if (section === Section.CABINET) {
+    if (section === Section.CABINET || section === Section.ADMIN) {
       setIsRegistering(false);
-      setActiveSection(Section.CABINET);
+      setIsLoggingIn(false);
+      setActiveSection(section);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
     if (targetId) {
-      if (activeSection !== Section.HOME || isRegistering) {
+      if (activeSection !== Section.HOME || isRegistering || isLoggingIn) {
         setIsRegistering(false);
+        setIsLoggingIn(false);
         setActiveSection(Section.HOME);
         setTimeout(() => {
           const element = document.getElementById(targetId);
@@ -88,12 +106,38 @@ const App: React.FC = () => {
     } else {
       setActiveSection(section);
       setIsRegistering(false);
+      setIsLoggingIn(false);
     }
   };
 
   const renderContent = () => {
     if (isRegistering) {
-      return <RegistrationForm onComplete={handleLogin} onCancel={() => setIsRegistering(false)} language={language} />;
+      return (
+        <RegistrationForm 
+          onComplete={handleLogin} 
+          onCancel={() => setIsRegistering(false)} 
+          language={language} 
+        />
+      );
+    }
+
+    if (isLoggingIn) {
+      return (
+        <LoginForm 
+          onComplete={handleLogin} 
+          onCancel={() => setIsLoggingIn(false)} 
+          onSwitchToRegister={() => { setIsLoggingIn(false); setIsRegistering(true); }}
+          language={language} 
+        />
+      );
+    }
+
+    if (activeSection === Section.ADMIN) {
+      return user?.role === 'admin' ? (
+        <AdminPanel currentUser={user} language={language} t={t} />
+      ) : (
+        <div className="min-h-screen flex items-center justify-center">Unauthorized</div>
+      );
     }
 
     if (activeSection === Section.CABINET) {
@@ -101,15 +145,23 @@ const App: React.FC = () => {
         <PersonalCabinet user={user} onLogout={handleLogout} language={language} t={t} />
       ) : (
         <div className="min-h-screen flex items-center justify-center p-6">
-          <div className="glass-card p-12 rounded-[2.5rem] text-center border-amber-300 shadow-2xl max-w-md navoiy-glow">
+          <div className="glass-card p-12 rounded-[3rem] text-center border-amber-300 shadow-2xl max-w-md navoiy-glow">
             <h2 className="text-4xl font-classic mb-6 text-slate-800">{t('nav_cabinet')}</h2>
             <p className="text-slate-600 font-serif-classic text-2xl mb-10 leading-relaxed italic">{t('footer_text')}</p>
-            <button 
-              onClick={() => setIsRegistering(true)}
-              className="w-full px-8 py-5 gold-gradient text-slate-900 font-bold rounded-2xl shadow-lg hover:opacity-90 transition-all text-xl"
-            >
-              {t('nav_register')}
-            </button>
+            <div className="space-y-4">
+              <button 
+                onClick={() => setIsLoggingIn(true)}
+                className="w-full px-8 py-5 royal-gradient text-white font-bold rounded-2xl shadow-lg hover:opacity-90 transition-all text-xl"
+              >
+                {t('nav_login')}
+              </button>
+              <button 
+                onClick={() => setIsRegistering(true)}
+                className="w-full px-8 py-5 gold-gradient text-slate-900 font-bold rounded-2xl shadow-lg hover:opacity-90 transition-all text-xl"
+              >
+                {t('nav_register')}
+              </button>
+            </div>
           </div>
         </div>
       );
@@ -124,6 +176,9 @@ const App: React.FC = () => {
         <Heritage language={language} />
         <div id="venue">
           <Venue onOpenTour={openTour} language={language} />
+        </div>
+        <div id="program">
+          <Program language={language} />
         </div>
         <div id="logistics">
           <Tourism onOpenTour={openTour} language={language} />
@@ -153,6 +208,7 @@ const App: React.FC = () => {
         setActiveSection={handleSectionChange} 
         isLoggedIn={!!user}
         setIsRegistering={setIsRegistering}
+        setIsLoggingIn={setIsLoggingIn}
         language={language}
         setLanguage={setLanguage}
       />

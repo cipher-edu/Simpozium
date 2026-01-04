@@ -3,13 +3,80 @@ export const translations = {
   uz: {
     nav_home: "Bosh sahifa",
     nav_about: "Simpozium haqida",
+    nav_program: "Dastur",
     nav_tracks: "Sho‘balar",
     nav_speakers: "Ma’ruzachilar",
     nav_logistics: "Logistika",
     nav_archive: "Arxiv",
     nav_cabinet: "Kabinet",
-    nav_register: "Ishtirok etish",
+    nav_admin: "Admin",
+    nav_register: "Ro'yxatdan o'tish",
+    nav_login: "Kirish",
     nav_location: "Manzil",
+
+    program_subtitle: "Uch kunlik ilmiy muloqot va madaniy meros tadbirlari xronologiyasi",
+    program_day: "KUN",
+
+    schedule_data: [
+      {
+        day: 1,
+        date: "09 Fevral",
+        events: [
+          { time: "09:00", title: "Ishtirokchilarni kutib olish va ro'yxatga olish", type: "break", location: "Foye, Asosiy bino" },
+          { time: "10:00", title: "Simpoziumning tantanali ochilish marosimi", speaker: "M. Kalonov, NDU Rektori", type: "plenary", location: "Konferens-zall" },
+          { time: "11:30", title: "Plenar ma'ruza: Navoiy va XXI asr tafakkuri", speaker: "Akademik O. Abduraimov", type: "plenary" },
+          { time: "13:00", title: "Tushlik va milliy taomlar degustatsiyasi", type: "break" },
+          { time: "14:30", title: "Seksiyalar bo'yicha ilmiy munozaralar (1-qism)", type: "track" },
+          { time: "18:00", title: "Kechki madaniy dastur: G'azalxonlik kechasi", type: "cultural", location: "NDU Amfiteatri" }
+        ]
+      },
+      {
+        day: 2,
+        date: "10 Fevral",
+        events: [
+          { time: "09:30", title: "Seksiyalar bo'yicha ilmiy munozaralar (2-qism)", type: "track" },
+          { time: "11:00", title: "Kofe-breyk", type: "break" },
+          { time: "11:30", title: "Navoiy qo'lyozmalari ko'rgazmasi namoyishi", type: "cultural", location: "Kutubxona" },
+          { time: "14:00", title: "Xalqaro hamkorlik memorandumlari imzolanishi", type: "plenary" },
+          { time: "16:00", title: "Master-klass: Matnshunoslikda sun'iy intellekt", speaker: "Prof. Dr. Ahmad", type: "track" }
+        ]
+      },
+      {
+        day: 3,
+        date: "11 Fevral",
+        events: [
+          { time: "10:00", title: "Simpozium xulosalari va rezolyutsiya qabul qilish", type: "plenary" },
+          { time: "12:00", title: "G'oliblarni taqdirlash va tantanali yopilish", type: "plenary" },
+          { time: "14:00", title: "Navoiy shahri va Sarmishsoyga ekskursiya", type: "cultural" }
+        ]
+      }
+    ],
+
+    admin_dashboard: "Boshqaruv paneli",
+    admin_users: "Foydalanuvchilar",
+    admin_articles: "Maqolalar",
+    admin_speakers: "Ma'ruzachilar",
+    admin_stats_total_users: "Jami foydalanuvchilar",
+    admin_stats_pending_articles: "Kutilayotgan maqolalar",
+    admin_stats_accepted: "Qabul qilingan",
+    admin_btn_approve: "Tasdiqlash",
+    admin_btn_reject: "Rad etish",
+    admin_btn_edit: "Tahrirlash",
+    admin_btn_delete: "O'chirish",
+    admin_search_placeholder: "Qidiruv...",
+    admin_table_name: "Ism",
+    admin_table_status: "Holat",
+    admin_table_date: "Sana",
+    admin_table_actions: "Amallar",
+
+    login_title: "Tizimga kirish",
+    login_subtitle: "Shaxsiy kabinetingizga kiring",
+    login_label_email: "Elektron pochta",
+    login_label_password: "Parol",
+    login_btn: "Kirish",
+    login_no_account: "Hisobingiz yo'qmi?",
+    login_forgot: "Parolni unutdingizmi?",
+    login_error: "Email yoki parol xato!",
 
     archive_title: "Ilmiy Meros Arxivi",
     archive_subtitle: "Simpoziumlar xronologiyasi: O'tmishdan kelajakka ma'rifat ko'priklari",
@@ -33,14 +100,14 @@ export const translations = {
         outcomes: [
           "Navoiy asarlarining yangi akademik nashri tamoyillari ishlab chiqildi",
           "Sharq renessansi va Temuriylar davri madaniyatiga doir xalqaro memorandum imzolandi",
-          "Yosh olimlar uchun maxsus ilmiy grantlar dasturi e'lon qilindi"
+          "Yosh olimlar uchun maxsus ilmiy grantlar bashorati e'lon qilindi"
         ],
         tracks: [
           { title: "Navoiy va umuminsoniy qadriyatlar", count: 75, details: "Navoiy asarlaridagi gumanizm va adolat g'oyalari." },
           { title: "Matnshunoslik va manbashunoslik", count: 48, details: "Qo'lyozmalarni qiyosiy o'rganish metodikasi." }
         ],
         books: [
-          { id: "b1-1", title: "Sharq Renessansi va Navoiy - I Jild", isbn: "978-9943-12-000-1", editors: "Akad. Sh. Rahmonov", year: 2024, pages: 580 }
+          { id: "b1-1", title: "Sharq Renessansi va Navoiy - I Jild", isbn: "978-9943-12-000-1", editors: "O. Abduraimov", year: 2024, pages: 580 }
         ],
         gallery: [
           "https://picsum.photos/seed/nav1/800/600",
@@ -63,7 +130,7 @@ export const translations = {
           { title: "Tarjimashunoslik masalalari", count: 45, details: "Navoiy g'azallarini ingliz va fransuz tillariga tarjima qilish muammolari." }
         ],
         books: [
-          { id: "b2-2", title: "Navoiy Merosi: Tarjima va Talqinlar", isbn: "978-9943-12-000-2", editors: "Dr. Z. Turkiy", year: 2024, pages: 420 }
+          { id: "b2-2", title: "Navoiy Merosi: Tarjima va Talqinlar", isbn: "978-9943-12-000-2", editors: "O. Abduraimov", year: 2024, pages: 420 }
         ],
         gallery: [
           "https://picsum.photos/seed/nav3/800/600",
@@ -77,7 +144,7 @@ export const translations = {
     hero_cta_register: "Ro‘yxatdan O‘tish",
     hero_cta_plan: "Simpozium Rejasi",
     hero_date: "9-11 Fevral",
-    hero_location: "Navoiy, NDU",
+    hero_location: "Navoi, NDU",
     hero_format: "Gibrid",
     hero_tracks: "4 Sho‘ba",
     heritage_title: "Sultoni Salotini Nazm:",
@@ -95,7 +162,7 @@ export const translations = {
     venue_uni_p2: "Aynan ushbu universitet \"Navoiyshunoslik\" ilmiy-tadqiqot markazi bilan faxrlanadi.",
     venue_city_h: "Navoiy — Uyg'onish va Taraqqiyot Shahri",
     venue_city_p1: "Navoiy shahri — O'zbekistonning zamonaviy ramzlaridan biri. Shahar 1958-yilda barpo etilgan.",
-    venue_city_p2: "Shaharning markaziy qismida joylashgan \"Alisher Navoiy bog'i\" o'zining ko'rkamligi bilan ishtirokchilarni mahliyo qiladi.",
+    venue_city_p2: "Shaharning markaziy qismida joylgan \"Alisher Navoiy bog'i\" o'zining ko'rkamligi bilan ishtirokchilarni mahliyo qiladi.",
     tourism_title: "Navoiy Viloyati",
     tourism_subtitle: "Tarixiy Obidalari",
     tourism_monuments: [
@@ -116,25 +183,19 @@ export const translations = {
     speakers_subtitle: "Jahon navoiyshunosligining eng yorqin namoyandalari va sharqshunos olimlar.",
     speakers_list: [
       { 
-        name: "Professor Dr. Ahmad Al-Mansur", 
-        title: "Xalqaro islom akademiyasi prezidenti", 
-        inst: "Misr, Qohira universiteti",
-        bio: "Navoiy asarlaridagi islomiy falsafa va tasavvufiy ramzlar bo'yicha dunyoning yetakchi eksperti." 
-      },
-      { 
-        name: "Akademik Shavkat Rahmonov", 
+        name: "Oybek Abduraimov", 
         title: "Fanlar Akademiyasi haqiqiy a’zosi", 
         inst: "O‘zbekiston, O‘zMU",
         bio: "Turkiy tillarning qiyosiy grammatikasi va Navoiy leksikologiyasi maktabi asoschisi." 
       },
       { 
-        name: "Dr. Zaynab Turkiy", 
+        name: "Oybek Abduraimov", 
         title: "Turkiy meros tadqiqotlar markazi rahbari", 
         inst: "Turkiya, Istanbul universiteti",
         bio: "Usmonli va Temuriy adabiy aloqalari hamda Navoiyning Anado'lidagi ta'siri bo'yicha tadqiqotchi." 
       },
       { 
-        name: "Professor Michel Vernet", 
+        name: "Oybek Abduraimov", 
         title: "Sharqshunos-olim, f.f.d.", 
         inst: "Fransiya, Sorbonna universiteti",
         bio: "Navoiy asarlarining G'arbiy Yevropa tillariga tarjimasi va madaniyatlararo muloqot mutaxassisi." 
@@ -207,13 +268,80 @@ export const translations = {
   ru: {
     nav_home: "Главная",
     nav_about: "О симпозиуме",
+    nav_program: "Программа",
     nav_tracks: "Секции",
     nav_speakers: "Докладчики",
     nav_logistics: "Логистика",
     nav_archive: "Архив",
     nav_cabinet: "Кабинет",
-    nav_register: "Участие",
+    nav_admin: "Админ",
+    nav_register: "Регистрация",
+    nav_login: "Вход",
     nav_location: "Адрес",
+
+    program_subtitle: "Хронология трехдневного научного диалога и мероприятий культурного наследия",
+    program_day: "ДЕНЬ",
+
+    schedule_data: [
+      {
+        day: 1,
+        date: "09 Февраля",
+        events: [
+          { time: "09:00", title: "Встреча и регистрация участников", type: "break", location: "Фойе, Главное здание" },
+          { time: "10:00", title: "Торжественная церемония открытия", speaker: "М. Калонов, Ректор НГУ", type: "plenary", location: "Конференц-зал" },
+          { time: "11:30", title: "Пленарный доклад: Навои и мышление XXI века", speaker: "Академик О. Абдураимов", type: "plenary" },
+          { time: "13:00", title: "Обед и дегустация национальных блюд", type: "break" },
+          { time: "14:30", title: "Научные дискуссии по секциям (часть 1)", type: "track" },
+          { time: "18:00", title: "Культурная программа: Вечер Газелей", type: "cultural", location: "Амфитеатр НГУ" }
+        ]
+      },
+      {
+        day: 2,
+        date: "10 Февраля",
+        events: [
+          { time: "09:30", title: "Научные дискуссии по секциям (часть 2)", type: "track" },
+          { time: "11:00", title: "Кофе-брейк", type: "break" },
+          { time: "11:30", title: "Выставка рукописей Навои", type: "cultural", location: "Библиотека" },
+          { time: "14:00", title: "Подписание меморандумов о сотрудничестве", type: "plenary" },
+          { time: "16:00", title: "Мастер-класс: ИИ в текстологии", speaker: "Проф. Др. Ахмад", type: "track" }
+        ]
+      },
+      {
+        day: 3,
+        date: "11 Февраля",
+        events: [
+          { time: "10:00", title: "Итоги симпозиума и принятие резолюции", type: "plenary" },
+          { time: "12:00", title: "Награждение и торжественное закрытие", type: "plenary" },
+          { time: "14:00", title: "Экскурсия по городу Навои и в Сармышсай", type: "cultural" }
+        ]
+      }
+    ],
+
+    admin_dashboard: "Панель управления",
+    admin_users: "Пользователи",
+    admin_articles: "Статьи",
+    admin_speakers: "Докладчики",
+    admin_stats_total_users: "Всего пользователей",
+    admin_stats_pending_articles: "Ожидающие статьи",
+    admin_stats_accepted: "Принятые",
+    admin_btn_approve: "Одобрить",
+    admin_btn_reject: "Отклонить",
+    admin_btn_edit: "Редактировать",
+    admin_btn_delete: "Удалить",
+    admin_search_placeholder: "Поиск...",
+    admin_table_name: "Имя",
+    admin_table_status: "Статус",
+    admin_table_date: "Дата",
+    admin_table_actions: "Действия",
+
+    login_title: "Вход в систему",
+    login_subtitle: "Войдите в личный кабинет",
+    login_label_email: "Электронная почта",
+    login_label_password: "Пароль",
+    login_btn: "Войти",
+    login_no_account: "Нет аккаунта?",
+    login_forgot: "Забыли пароль?",
+    login_error: "Неверный email или пароль!",
 
     archive_title: "Архив научного наследия",
     archive_subtitle: "Хронология симпозиумов: мосты просвещения из прошлого в будущее",
@@ -244,7 +372,7 @@ export const translations = {
           { title: "Текстология и источниковедение", count: 48, details: "Методика сравнительного изучения рукописей." }
         ],
         books: [
-          { id: "b1-1", title: "Восточный Ренессанс и Навои - Том I", isbn: "978-9943-12-000-1", editors: "Акад. Ш. Рахмонов", year: 2024, pages: 580 }
+          { id: "b1-1", title: "Восточный Ренессанс и Навои - Том I", isbn: "978-9943-12-000-1", editors: "О. Абдураимов", year: 2024, pages: 580 }
         ],
         gallery: [
           "https://picsum.photos/seed/nav1/800/600",
@@ -267,7 +395,7 @@ export const translations = {
           { title: "Вопросы переводоведения", count: 45, details: "Перевод газелей Навои на английский и французский языки." }
         ],
         books: [
-          { id: "b2-2", title: "Наследие Навои: Переводы и интерпретации", isbn: "978-9943-12-000-2", editors: "Д-р З. Туркий", year: 2024, pages: 420 }
+          { id: "b2-2", title: "Наследие Навои: Переводы и интерпретации", isbn: "978-9943-12-000-2", editors: "О. Абдураимов", year: 2024, pages: 420 }
         ],
         gallery: [
           "https://picsum.photos/seed/nav3/800/600",
@@ -299,7 +427,7 @@ export const translations = {
     venue_uni_p2: "Этот университет гордится научно-исследовательским центром «Навоиведение».",
     venue_city_h: "Навои — город возрождения и прогресса",
     venue_city_p1: "Город Навои — один из современных символов Узбекистана, основанный в 1958 году.",
-    venue_city_p2: "Парк имени Алишера Навои в центре города очаровывает участников своей красотой.",
+    venue_city_p2: "Парк имени Алишера Навои в центре города очаровывает участников своей прогрессивной красотой.",
     tourism_title: "Навоийская область",
     tourism_subtitle: "Исторические памятники",
     tourism_monuments: [
@@ -320,25 +448,19 @@ export const translations = {
     speakers_subtitle: "Ярчайшие представители мирового навоиведения и востоковеды.",
     speakers_list: [
       { 
-        name: "Проф. д-р Ахмад аль-Мансур", 
-        title: "Президент Международной исламской академии", 
-        inst: "Египет, Каирский университет",
-        bio: "Ведущий мировой эксперт по исламской философии и суфийским символам в трудах Навои." 
-      },
-      { 
-        name: "Академик Шавкат Рахмонов", 
+        name: "Ойбек Абдураимов", 
         title: "Действительный член Академии наук", 
         inst: "Узбекистан, НУУз",
         bio: "Основатель школы сравнительной грамматики тюркских языков и лексикологии Навои." 
       },
       { 
-        name: "Д-р Зайнаб Туркий", 
+        name: "Ойбек Абдураимов", 
         title: "Руководитель центра исследований тюркского наследия", 
         inst: "Турция, Стамбульский университет",
         bio: "Исследователь османско-тимуридских литературных связей и влияния Навои в Анатолии." 
       },
       { 
-        name: "Профессор Мишель Верне", 
+        name: "Ойбек Абдураимов", 
         title: "Востоковед, д.ф.н.", 
         inst: "Франция, Сорбонна",
         bio: "Специалист по переводам произведений Навои на западноевропейские языки." 
@@ -363,7 +485,7 @@ export const translations = {
     reg_label_track: "Выбранная секция",
     reg_roles: ["Слушатель", "Докладчик", "Студент"],
     reg_btn: "Завершить регистрацию",
-    reg_back: "Назад",
+    reg_back: "Го Back",
     cabinet_welcome: "Добро пожаловать",
     cabinet_status: "Статус: Подтверждено",
     cabinet_badge: "Бейджик симпозиума",
@@ -411,13 +533,80 @@ export const translations = {
   en: {
     nav_home: "Home",
     nav_about: "About Symposium",
+    nav_program: "Program",
     nav_tracks: "Tracks",
     nav_speakers: "Speakers",
     nav_logistics: "Logistics",
     nav_archive: "Archive",
     nav_cabinet: "Cabinet",
+    nav_admin: "Admin",
     nav_register: "Registration",
+    nav_login: "Login",
     nav_location: "Location",
+
+    program_subtitle: "Chronology of a three-day scientific dialogue and cultural heritage events",
+    program_day: "DAY",
+
+    schedule_data: [
+      {
+        day: 1,
+        date: "Feb 09",
+        events: [
+          { time: "09:00", title: "Greeting and Registration", type: "break", location: "Lobby, Main Building" },
+          { time: "10:00", title: "Grand Opening Ceremony", speaker: "M. Kalonov, Rector of NSU", type: "plenary", location: "Conference Hall" },
+          { time: "11:30", title: "Plenary Lecture: Navoi and 21st Century Thinking", speaker: "Academician O. Abduraimov", type: "plenary" },
+          { time: "13:00", title: "Lunch and National Cuisine Tasting", type: "break" },
+          { time: "14:30", title: "Sectional Scientific Discussions (Part 1)", type: "track" },
+          { time: "18:00", title: "Cultural Evening: Ghazal Poetry Night", type: "cultural", location: "NSU Amphitheater" }
+        ]
+      },
+      {
+        day: 2,
+        date: "Feb 10",
+        events: [
+          { time: "09:30", title: "Sectional Scientific Discussions (Part 2)", type: "track" },
+          { time: "11:00", title: "Coffee Break", type: "break" },
+          { time: "11:30", title: "Navoi Manuscript Exhibition", type: "cultural", location: "Library" },
+          { time: "14:00", title: "Signing of Memorandums of Cooperation", type: "plenary" },
+          { time: "16:00", title: "Workshop: AI in Textology", speaker: "Prof. Dr. Ahmad", type: "track" }
+        ]
+      },
+      {
+        day: 3,
+        date: "Feb 11",
+        events: [
+          { time: "10:00", title: "Symposium Conclusions and Resolution Adoption", type: "plenary" },
+          { time: "12:00", title: "Awarding and Closing Ceremony", type: "plenary" },
+          { time: "14:00", title: "Excursion to Navoi City and Sarmishsoy", type: "cultural" }
+        ]
+      }
+    ],
+
+    admin_dashboard: "Dashboard",
+    admin_users: "Users",
+    admin_articles: "Articles",
+    admin_speakers: "Speakers",
+    admin_stats_total_users: "Total Users",
+    admin_stats_pending_articles: "Pending Articles",
+    admin_stats_accepted: "Accepted",
+    admin_btn_approve: "Approve",
+    admin_btn_reject: "Reject",
+    admin_btn_edit: "Edit",
+    admin_btn_delete: "Delete",
+    admin_search_placeholder: "Search...",
+    admin_table_name: "Name",
+    admin_table_status: "Status",
+    admin_table_date: "Date",
+    admin_table_actions: "Actions",
+
+    login_title: "System Login",
+    login_subtitle: "Access your personal cabinet",
+    login_label_email: "Email Address",
+    login_label_password: "Password",
+    login_btn: "Login",
+    login_no_account: "Don't have an account?",
+    login_forgot: "Forgot password?",
+    login_error: "Invalid email or password!",
 
     archive_title: "Scientific Heritage Archive",
     archive_subtitle: "Symposium Chronology: Bridges of Enlightenment from Past to Future",
@@ -448,7 +637,7 @@ export const translations = {
           { title: "Textology and Source Studies", count: 48, details: "Methodology of comparative manuscript study." }
         ],
         books: [
-          { id: "b1-1", title: "Oriental Renaissance and Navoi - Vol I", isbn: "978-9943-12-000-1", editors: "Acad. Sh. Rakhmonov", year: 2024, pages: 580 }
+          { id: "b1-1", title: "Oriental Renaissance and Navoi - Vol I", isbn: "978-9943-12-000-1", editors: "O. Abduraimov", year: 2024, pages: 580 }
         ],
         gallery: [
           "https://picsum.photos/seed/nav1/800/600",
@@ -471,7 +660,7 @@ export const translations = {
           { title: "Translation Studies", count: 45, details: "Translating Navoi's ghazals into English and French." }
         ],
         books: [
-          { id: "b2-2", title: "Navoi Heritage: Translations and Interpretations", isbn: "978-9943-12-000-2", editors: "Dr. Z. Turkiy", year: 2024, pages: 420 }
+          { id: "b2-2", title: "Navoi Heritage: Translations and Interpretations", isbn: "978-9943-12-000-2", editors: "O. Abduraimov", year: 2024, pages: 420 }
         ],
         gallery: [
           "https://picsum.photos/seed/nav3/800/600",
@@ -503,7 +692,7 @@ export const translations = {
     venue_uni_p2: "The university is proud of its \"Navoi Studies\" research center.",
     venue_city_h: "Navoi — City of Renaissance and Progress",
     venue_city_p1: "Navoi city is one of the modern symbols of Uzbekistan, founded in 1958.",
-    venue_city_p2: "The \"Alisher Navoi Park\" in the city center charms participants with its beauty.",
+    venue_city_p2: "The \"Alisher Navoi Park\" in the city center charms participants with its progressive beauty.",
     tourism_title: "Navoi Region",
     tourism_subtitle: "Historical Monuments",
     tourism_monuments: [
@@ -524,25 +713,19 @@ export const translations = {
     speakers_subtitle: "Brightest representatives of global Navoi studies and orientalists.",
     speakers_list: [
       { 
-        name: "Professor Dr. Ahmad Al-Mansur", 
-        title: "President of International Islamic Academy", 
-        inst: "Egypt, Cairo University",
-        bio: "Leading global expert on Islamic philosophy and Sufi symbols in Navoi's works." 
-      },
-      { 
-        name: "Academician Shavkat Rakhmonov", 
+        name: "Oybek Abduraimov", 
         title: "Member of the Academy of Sciences", 
         inst: "Uzbekistan, NUUz",
         bio: "Founder of the comparative grammar school of Turkic languages." 
       },
       { 
-        name: "Dr. Zaynab Turkiy", 
+        name: "Oybek Abduraimov", 
         title: "Head of Turkic Heritage Research Center", 
         inst: "Turkey, Istanbul University",
         bio: "Researcher of Ottoman-Timurid literary relations." 
       },
       { 
-        name: "Professor Michel Vernet", 
+        name: "Oybek Abduraimov", 
         title: "Orientalist, PhD", 
         inst: "France, Sorbonne University",
         bio: "Specialist in translations of Navoi's works into Western European languages." 
@@ -599,7 +782,7 @@ export const translations = {
     timeline_accepted: "Accepted",
     cert_title: "Certificate",
     cert_confirm: "This document confirms that",
-    cert_body: "has participated in the international scientific-theoretical symposium \"ALISHER NAVOI AND XXI CENTURY\" dedicated to the 584th anniversary of Hazrat Alisher Navoi, presenting a meaningful scientific report.",
+    cert_body: "has participated in the international scientific-theoretical symposium \"ALISHER NAVOI and XXI CENTURY\" dedicated to the 584th anniversary of Hazrat Alisher Navoi, presenting a meaningful scientific report.",
     cert_rector_name: "Muxiddin KALONOV",
     cert_rector_title: "Rector of Navoi State University, Professor",
     cert_date: "09.02.2025",

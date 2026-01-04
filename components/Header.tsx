@@ -8,18 +8,27 @@ interface HeaderProps {
   setActiveSection: (section: Section) => void;
   isLoggedIn: boolean;
   setIsRegistering: (val: boolean) => void;
+  setIsLoggingIn: (val: boolean) => void;
   language: Language;
   setLanguage: (lang: Language) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ activeSection, setActiveSection, isLoggedIn, setIsRegistering, language, setLanguage }) => {
+const Header: React.FC<HeaderProps> = ({ 
+  activeSection, 
+  setActiveSection, 
+  isLoggedIn, 
+  setIsRegistering, 
+  setIsLoggingIn, 
+  language, 
+  setLanguage 
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
 
   const t = (key: keyof typeof translations.uz): string => {
-    const value = translations[language][key] || translations.uz[key];
-    return (typeof value === 'string' ? value : key);
+    const value = (translations[language] as any)[key] || translations.uz[key];
+    return (typeof value === 'string' ? value : String(key));
   };
 
   useEffect(() => {
@@ -33,7 +42,8 @@ const Header: React.FC<HeaderProps> = ({ activeSection, setActiveSection, isLogg
   const navItems = [
     { section: Section.HOME, label: t('nav_home') },
     { section: Section.ABOUT, label: t('nav_about') },
-    { section: Section.ARCHIVE, label: t('nav_archive') }, // Yangi qo'shildi
+    { section: Section.PROGRAM, label: t('nav_program') },
+    { section: Section.ARCHIVE, label: t('nav_archive') },
     { section: Section.TRACKS, label: t('nav_tracks') },
     { section: Section.SPEAKERS, label: t('nav_speakers') },
     { section: Section.LOGISTICS, label: t('nav_logistics') },
@@ -72,13 +82,13 @@ const Header: React.FC<HeaderProps> = ({ activeSection, setActiveSection, isLogg
               ))}
             </nav>
 
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-3">
               <div className="relative">
                 <button 
                   onClick={() => setLangMenuOpen(!langMenuOpen)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full border border-amber-100 bg-amber-50/50 hover:bg-amber-100 transition-colors text-xs font-black uppercase tracking-widest text-amber-900"
+                  className="flex items-center gap-2 px-3 py-2 rounded-full border border-amber-100 bg-amber-50/50 hover:bg-amber-100 transition-colors text-[10px] font-black uppercase tracking-widest text-amber-900"
                 >
-                  <span className="text-lg">🌐</span>
+                  <span className="text-sm">🌐</span>
                   {language}
                 </button>
                 {langMenuOpen && (
@@ -90,7 +100,7 @@ const Header: React.FC<HeaderProps> = ({ activeSection, setActiveSection, isLogg
                           setLanguage(lang);
                           setLangMenuOpen(false);
                         }}
-                        className={`w-full px-4 py-3 text-left text-xs font-black uppercase tracking-widest hover:bg-amber-50 transition-colors ${language === lang ? 'text-amber-600 bg-amber-50/30' : 'text-slate-600'}`}
+                        className={`w-full px-4 py-3 text-left text-[10px] font-black uppercase tracking-widest hover:bg-amber-50 transition-colors ${language === lang ? 'text-amber-600 bg-amber-50/30' : 'text-slate-600'}`}
                       >
                         {lang === 'uz' ? 'O\'zbek' : lang === 'ru' ? 'Русский' : 'English'}
                       </button>
@@ -100,26 +110,34 @@ const Header: React.FC<HeaderProps> = ({ activeSection, setActiveSection, isLogg
               </div>
 
               {!isLoggedIn ? (
-                <button 
-                  onClick={() => setIsRegistering(true)}
-                  className="px-6 py-2.5 rounded-full text-[10px] font-black gold-gradient text-slate-900 shadow-lg hover:shadow-amber-200 uppercase tracking-widest transition-all active:scale-95"
-                >
-                  {t('nav_register')}
-                </button>
+                <div className="hidden sm:flex items-center gap-2">
+                  <button 
+                    onClick={() => setIsLoggingIn(true)}
+                    className="px-5 py-2.5 rounded-full text-[10px] font-black bg-slate-900 text-white shadow-lg hover:bg-slate-800 uppercase tracking-widest transition-all active:scale-95"
+                  >
+                    {t('nav_login')}
+                  </button>
+                  <button 
+                    onClick={() => setIsRegistering(true)}
+                    className="px-5 py-2.5 rounded-full text-[10px] font-black gold-gradient text-slate-900 shadow-lg hover:shadow-amber-200 uppercase tracking-widest transition-all active:scale-95"
+                  >
+                    {t('nav_register')}
+                  </button>
+                </div>
               ) : (
                 <div 
                   onClick={() => setActiveSection(Section.CABINET)}
                   className="flex items-center space-x-3 cursor-pointer p-1.5 pr-4 rounded-full border border-emerald-100 bg-emerald-50/50 hover:bg-emerald-50 transition-colors"
                 >
                   <div className="w-8 h-8 rounded-full royal-gradient flex items-center justify-center text-[8px] text-white font-black uppercase">Cab</div>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-emerald-800">{t('nav_cabinet')}</span>
+                  <span className="hidden md:inline text-[10px] font-black uppercase tracking-widest text-emerald-800">{t('nav_cabinet')}</span>
                 </div>
               )}
 
               <div className="xl:hidden">
                 <button 
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="p-3 rounded-2xl bg-amber-50 text-amber-800 hover:bg-amber-100 transition-colors"
+                  className="p-2 rounded-xl bg-amber-50 text-amber-800 hover:bg-amber-100 transition-colors"
                 >
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={mobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
@@ -141,13 +159,19 @@ const Header: React.FC<HeaderProps> = ({ activeSection, setActiveSection, isLogg
                   setActiveSection(item.section);
                   setMobileMenuOpen(false);
                 }}
-                className={`block w-full text-left p-4 text-xs font-black uppercase tracking-widest rounded-2xl transition-all ${
+                className={`block w-full text-left p-4 text-[10px] font-black uppercase tracking-widest rounded-2xl transition-all ${
                   activeSection === item.section ? 'bg-amber-100 text-amber-800' : 'text-slate-600 hover:bg-slate-50'
                 }`}
               >
                 {item.label}
               </button>
             ))}
+            {!isLoggedIn && (
+               <div className="grid grid-cols-2 gap-4 pt-6 border-t border-amber-50 mt-4">
+                  <button onClick={() => {setIsLoggingIn(true); setMobileMenuOpen(false);}} className="p-4 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest">{t('nav_login')}</button>
+                  <button onClick={() => {setIsRegistering(true); setMobileMenuOpen(false);}} className="p-4 gold-gradient text-slate-900 rounded-2xl text-[10px] font-black uppercase tracking-widest">{t('nav_register')}</button>
+               </div>
+            )}
           </div>
         </div>
       )}

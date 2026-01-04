@@ -53,8 +53,11 @@ const PersonalCabinet: React.FC<PersonalCabinetProps> = ({ user: initialUser, on
       setUploadProgress(prev => {
         if (prev >= 100) {
           clearInterval(interval);
+          // Add missing userId and userName to satisfy Article interface
           const newArticle: Article = {
             id: Math.random().toString(36).substr(2, 9),
+            userId: user.id,
+            userName: user.name,
             title: articleForm.title,
             abstract: articleForm.abstract,
             keywords: articleForm.keywords.split(',').map(k => k.trim()),
