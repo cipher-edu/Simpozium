@@ -29,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({
   const [langMenuOpen, setLangMenuOpen] = useState(false);
 
   const t = (key: keyof typeof translations.uz): string => {
-    const value = (translations[language] as any)[key] || translations.uz[key];
+    const value = (translations[language] as any)?.[key] || translations.uz[key];
     return (typeof value === 'string' ? value : String(key));
   };
 

@@ -11,12 +11,12 @@ interface RegistrationFormProps {
 
 const RegistrationForm: React.FC<RegistrationFormProps & { language: Language }> = ({ onComplete, onCancel, language }) => {
   const t = (key: keyof typeof translations.uz): string => {
-    const val = (translations[language] as any)[key] || (translations.uz as any)[key];
+    const val = (translations[language] as any)?.[key] || (translations.uz as any)[key];
     return typeof val === 'string' ? val : key;
   };
 
-  const roles = (translations[language] as any).reg_roles || translations.uz.reg_roles;
-  const tracks = (translations[language] as any).tracks_list || translations.uz.tracks_list;
+  const roles = (translations[language] as any)?.reg_roles || translations.uz.reg_roles;
+  const tracks = (translations[language] as any)?.tracks_list || translations.uz.tracks_list;
 
   const [formData, setFormData] = useState({
     name: '',

@@ -12,7 +12,7 @@ interface LoginFormProps {
 
 const LoginForm: React.FC<LoginFormProps> = ({ onComplete, onCancel, onSwitchToRegister, language }) => {
   const t = (key: keyof typeof translations.uz): string => {
-    const val = (translations[language] as any)[key] || (translations.uz as any)[key];
+    const val = (translations[language] as any)?.[key] || (translations.uz as any)[key];
     return typeof val === 'string' ? val : key;
   };
 

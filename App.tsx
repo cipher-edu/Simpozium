@@ -31,9 +31,10 @@ const App: React.FC = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [language, setLanguage] = useState<Language>('uz');
   
+  // Robust translation helper
   const t = (key: string): any => {
-    const langData = translations[language] as any;
-    const uzData = translations.uz as any;
+    const langData = (translations as any)[language];
+    const uzData = (translations as any).uz;
     
     if (langData && langData[key] !== undefined) {
       return langData[key];
@@ -83,7 +84,7 @@ const App: React.FC = () => {
 
     switch (activeSection) {
       case Section.ADMIN:
-        return user?.role === 'admin' ? <AdminPanel currentUser={user} language={language} t={t} /> : <div className="min-h-screen flex items-center justify-center font-serif-classic text-2xl italic">Ruxsat etilmagan</div>;
+        return user?.role === 'admin' ? <AdminPanel currentUser={user} language={language} t={t} /> : <div className="min-h-screen flex items-center justify-center font-serif-classic text-2xl italic">Unauthorized</div>;
       case Section.CABINET:
         return user ? <PersonalCabinet user={user} onLogout={handleLogout} language={language} t={t} /> : (
           <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50/30">
@@ -141,11 +142,11 @@ const App: React.FC = () => {
       <main className="flex-grow">
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeSection + (isRegistering ? '-reg' : '') + (isLoggingIn ? '-log' : '')}
-            initial={{ opacity: 0, y: 20 }}
+            key={activeSection + (isRegistering ? '-reg' : '') + (isLoggingIn ? '-log' : '') + language}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
           >
             {renderContent()}
           </motion.div>
@@ -158,7 +159,7 @@ const App: React.FC = () => {
         title={tourData.title}
         tourUrl={tourData.url}
       />
-      <AIChatAssistant />
+      <AIChatAssistant language={language} />
     </div>
   );
 };

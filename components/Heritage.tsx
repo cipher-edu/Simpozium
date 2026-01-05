@@ -8,9 +8,10 @@ interface HeritageProps {
 }
 
 const Heritage: React.FC<HeritageProps> = ({ language }) => {
-  // Fix: Ensure t function returns string
-  const t = (key: keyof typeof translations.uz): string => {
-    const val = translations[language][key] || translations.uz[key];
+  // Fix: Relaxed key type from 'keyof typeof translations.uz' to 'string' 
+  // to be consistent with other components and allow more flexible key usage.
+  const t = (key: string): string => {
+    const val = (translations[language] as any)?.[key] || (translations.uz as any)[key];
     return (typeof val === 'string' ? val : key);
   };
 
